@@ -20,9 +20,10 @@ exports.signup = async (req, res) => {
 
 exports.signin = async (req, res) => {
   const { email, password } = req.body;
+  console.log(req.body);
   // find if the user exists
-  User.findOne({ email }, (user, error) => {
-    if (!user || error) {
+  User.findOne({ email }, (error, user) => {
+    if (error || !user) {
       res.status(401).json({
         error: "User with that email does not exist"
       });
