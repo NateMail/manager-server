@@ -11,6 +11,7 @@ const cookieParser = require("cookie-parser");
 const expressValidator = require("express-validator");
 const cors = require("cors");
 const authRoutes = require("./routes/auth");
+const listRoutes = require("./routes/list");
 
 /**
  * App Variables
@@ -40,6 +41,7 @@ app.use(cookieParser());
 app.use(expressValidator());
 app.use(cors());
 app.use("/", authRoutes);
+app.use("/", listRoutes);
 
 /**
  * Routes Definitions

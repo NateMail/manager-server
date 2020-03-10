@@ -6,6 +6,14 @@ const listSchema = new mongoose.Schema({
     type: String,
     require: true
   },
+  createdBy: {
+    type: ObjectId,
+    ref: "User"
+  },
+  created: {
+    type: Date,
+    default: Date.now
+  },
   tasks: [
     {
       text: String,

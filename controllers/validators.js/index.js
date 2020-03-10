@@ -28,3 +28,17 @@ exports.userSignupValidator = (req, res, next) => {
   // proceed to next middleware
   next();
 };
+
+exports.createListValidator = (req, res, next) => {
+  // title
+  req.check("title", "Please put a title").notEmpty();
+  // check for errors
+  const errors = req.validationErrors();
+  // if error show the first one
+  if (errors) {
+    const firstError = errors.map(error => error.msg)[0];
+    return res.status(400).json({ error: firstError });
+  }
+  // proceed to next middleware
+  next();
+};
