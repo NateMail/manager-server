@@ -6,12 +6,11 @@ const express = require("express");
 const mongoose = require("mongoose");
 const bodyParser = require("body-parser");
 const morgan = require("morgan");
-const path = require("path");
 const cookieParser = require("cookie-parser");
 const expressValidator = require("express-validator");
 const cors = require("cors");
-const authRoutes = require("./routes/auth");
-const listRoutes = require("./routes/list");
+const dotenv = require("dotenv");
+dotenv.config();
 
 /**
  * App Variables
@@ -33,6 +32,14 @@ mongoose.connection.on("error", error => {
 });
 
 /**
+ * Routes
+ */
+
+const authRoutes = require("./routes/auth");
+const listRoutes = require("./routes/list");
+const userRoutes = require("./routes/user");
+
+/**
  *  App Middleware
  */
 app.use(morgan("dev"));
@@ -42,6 +49,7 @@ app.use(expressValidator());
 app.use(cors());
 app.use("/", authRoutes);
 app.use("/", listRoutes);
+app.use("/", userRoutes);
 
 /**
  * Routes Definitions
@@ -49,6 +57,8 @@ app.use("/", listRoutes);
 app.get("/", (req, res) => {
   res.status(200).send("Manager-Server");
 });
+
+// const path = require("path");
 
 /**
  * Server Activation
