@@ -4,7 +4,7 @@ const {
   listById,
   isCreator,
   isOwner,
-  listByUser,
+  listsByUser,
   singleList,
   deleteList
 } = require("../controllers/list");
@@ -21,6 +21,12 @@ router.post(
   createList,
   createListValidator
 );
+
+// Get lists
+router.get("/list/by/:userId", requireSignin, isOwner, listsByUser);
+
+// Get single list
+router.get("/list/:listId", requireSignin, isCreator, singleList);
 
 // Delete list
 router.delete("/list/remove/:listId", requireSignin, isCreator, deleteList);

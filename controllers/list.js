@@ -39,8 +39,9 @@ exports.listById = (req, res, next, id) => {
 };
 
 exports.isOwner = (req, res, next) => {
-  let isOwner = req.profile && req.auth && req.profile._id == req.auth._id;
-  console.log(isOwner);
+  console.log(req.profile);
+  console.log(req.auth);
+  let isOwner = req.profile && req.auth && req.profile._id == req.auth.id;
   if (!isOwner) {
     return res.status(403).json({
       error: "user is not authorized"
@@ -88,6 +89,6 @@ exports.isCreator = (req, res, next) => {
   next();
 };
 
-exports.singleLift = (req, res) => {
+exports.singleList = (req, res) => {
   return res.json(req.list);
 };
