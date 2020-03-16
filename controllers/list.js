@@ -78,6 +78,28 @@ exports.deleteList = (req, res) => {
   });
 };
 
+exports.updateList = (req, res, next) => {
+  let form = new formidable.IncomingForm();
+  form.keepExtensions = true;
+  form.parse(req, (error, fields) => {
+    if (error) {
+      return res.status(400).json({
+        error: "List couldn't be updated"
+      });
+    }
+    let list = req.list;
+    list = _.extend(list, fields);
+    list.save((error, result) => {
+      if (error) {
+        return res.status(400).json({
+          error: error
+        });
+      }
+      res.json(list);
+    });
+  });
+};
+
 exports.isCreator = (req, res, next) => {
   let isCreator = req.list && req.auth && req.list.createdBy == req.auth.id;
 

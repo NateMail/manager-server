@@ -6,6 +6,7 @@ const {
   isOwner,
   listsByUser,
   singleList,
+  updateList,
   deleteList
 } = require("../controllers/list");
 const { requireSignin } = require("../controllers/auth");
@@ -27,6 +28,9 @@ router.get("/list/by/:userId", requireSignin, isOwner, listsByUser);
 
 // Get single list
 router.get("/list/:listId", requireSignin, isCreator, singleList);
+
+// Update List
+router.put("/list/edit/:listId", requireSignin, isCreator, updateList);
 
 // Delete list
 router.delete("/list/remove/:listId", requireSignin, isCreator, deleteList);
