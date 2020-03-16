@@ -1,12 +1,20 @@
 const express = require("express");
-const { createList } = require("../controllers/list");
+const {
+  createList,
+  listById,
+  isCreator,
+  isOwner,
+  listByUser,
+  singleList,
+  deleteList
+} = require("../controllers/list");
 const { requireSignin } = require("../controllers/auth");
 const { createListValidator } = require("../controllers/validators.js");
 const { userById } = require("../controllers/user");
 
 const router = express.Router();
 
-// create list
+// Create list
 router.post(
   "/list/new/:userId",
   requireSignin,
@@ -14,6 +22,10 @@ router.post(
   createListValidator
 );
 
+// Delete list
+router.delete("/list/remove/:listId", requireSignin, isCreator, deleteList);
+
 router.param("userId", userById);
+router.param("listId", listById);
 
 module.exports = router;
