@@ -36,7 +36,7 @@ mongoose.connection.on("error", error => {
  */
 
 const authRoutes = require("./routes/auth");
-const listRoutes = require("./routes/list");
+const todoRoutes = require("./routes/todo");
 const userRoutes = require("./routes/user");
 
 /**
@@ -48,7 +48,7 @@ app.use(cookieParser());
 app.use(expressValidator());
 app.use(cors());
 app.use("/", authRoutes);
-app.use("/", listRoutes);
+app.use("/", todoRoutes);
 app.use("/", userRoutes);
 
 /**

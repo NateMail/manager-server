@@ -29,9 +29,9 @@ exports.userSignupValidator = (req, res, next) => {
   next();
 };
 
-exports.createListValidator = (req, res, next) => {
+exports.createToDoValidator = (req, res, next) => {
   // title
-  req.check("title", "Please put a title").notEmpty();
+  req.check("task", "Please put a task").notEmpty();
   // check for errors
   const errors = req.validationErrors();
   // if error show the first one

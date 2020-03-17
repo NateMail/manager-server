@@ -1,21 +1,21 @@
-const List = require("../models/list");
+const ToDo = require("../models/todo");
 const formidable = require("formidable");
 const _ = require("lodash");
 
-exports.createList = (req, res, next) => {
+exports.createToDo = (req, res, next) => {
   let form = new formidable.IncomingForm();
   form.keepExtensions = true;
   form.parse(req, (error, fields) => {
     if (error) {
       return res.status(400).json({
-        error: "List could not be created"
+        error: "Todo could not be created"
       });
     }
-    let list = new List(fields);
+    let todo = new ToDo(fields);
     req.profile.hashed_password = undefined;
     req.profile.salt = undefined;
-    list.createdBy = req.profile._id;
-    list.save((error, result) => {
+    todo.createdBy = req.profile._id;
+    todo.save((error, result) => {
       if (error) {
         return res.status(400).json({
           error: error
@@ -26,14 +26,14 @@ exports.createList = (req, res, next) => {
   });
 };
 
-exports.listById = (req, res, next, id) => {
-  List.findById(id).exec((error, list) => {
-    if (error || !list) {
+exports.toDoById = (req, res, next, id) => {
+  ToDo.findById(id).exec((error, todo) => {
+    if (error || !todo) {
       return res.status(400).json({
         error: error
       });
     }
-    req.list = list;
+    req.todo = todo;
     next();
   });
 };
@@ -50,58 +50,58 @@ exports.isOwner = (req, res, next) => {
   next();
 };
 
-exports.listsByUser = (req, res) => {
-  List.find({ createdBy: req.profile._id })
-    .select("title created tasks")
+exports.toDosByUser = (req, res) => {
+  ToDo.find({ createdBy: req.profile._id })
+    .select("task createdBy completed created")
     .sort("_created")
-    .exec((error, lists) => {
+    .exec((error, todos) => {
       if (error) {
         return res.status(400).json({
           error: error
         });
       }
-      res.json({ lists });
+      res.json({ todos });
     });
 };
 
-exports.deleteList = (req, res) => {
-  let list = req.list;
-  list.remove((error, list) => {
+exports.deleteToDo = (req, res) => {
+  let todo = req.todo;
+  todo.remove((error, todo) => {
     if (error) {
       return res.status(400).json({
         error: error
       });
     }
     res.json({
-      message: "List deleted!"
+      message: "todo deleted!"
     });
   });
 };
 
-exports.updateList = (req, res, next) => {
+exports.updateToDo = (req, res, next) => {
   let form = new formidable.IncomingForm();
   form.keepExtensions = true;
   form.parse(req, (error, fields) => {
     if (error) {
       return res.status(400).json({
-        error: "List couldn't be updated"
+        error: "todo couldn't be updated"
       });
     }
-    let list = req.list;
-    list = _.extend(list, fields);
-    list.save((error, result) => {
+    let todo = req.todo;
+    todo = _.extend(todo, fields);
+    todo.save((error, result) => {
       if (error) {
         return res.status(400).json({
           error: error
         });
       }
-      res.json(list);
+      res.json(todo);
     });
   });
 };
 
 exports.isCreator = (req, res, next) => {
-  let isCreator = req.list && req.auth && req.list.createdBy == req.auth.id;
+  let isCreator = req.todo && req.auth && req.todo.createdBy == req.auth.id;
 
   if (!isCreator) {
     return res.status(403).json({
@@ -111,6 +111,6 @@ exports.isCreator = (req, res, next) => {
   next();
 };
 
-exports.singleList = (req, res) => {
-  return res.json(req.list);
+exports.singleToDo = (req, res) => {
+  return res.json(req.todo);
 };
