@@ -23,6 +23,16 @@ router.post(
   createBodyValidator
 );
 
+// Show body
+router.get("/my/body/:userId", requireSignin, isOwner, userBody);
+
+// Show body info
+router.get("/body/:bodyId", requireSignin, isCreator, singleBody);
+
+// Update body
+router.put("/body/edit/:bodyId", requireSignin, isCreator, updateBody);
+
 router.param("userId", userById);
+router.param("bodyId", bodyById);
 
 module.exports = router;
