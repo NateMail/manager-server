@@ -4,7 +4,7 @@ const { ObjectId } = mongoose.Schema;
 const bodySchema = new mongoose.Schema({
   addedBy: {
     type: ObjectId,
-    ref: User
+    ref: "User"
   },
   created: {
     type: Date,
@@ -17,6 +17,12 @@ const bodySchema = new mongoose.Schema({
     type: Number,
     required: true
   },
+  weight: [
+    {
+      type: Number,
+      required: true
+    }
+  ],
   age: {
     type: Number,
     required: true

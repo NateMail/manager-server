@@ -42,3 +42,30 @@ exports.createToDoValidator = (req, res, next) => {
   // proceed to next middleware
   next();
 };
+
+exports.createBodyValidator = (req, res, next) => {
+  // height
+  req.check("height", "Enter a height").notEmpty();
+  req.check("height", "Height must be a number").isInt();
+
+  // weight
+  req.check("weight", "Enter a weight").notEmpty();
+
+  // age
+  req.check("age", "Enter your age").notEmpty();
+  req.check("age", "Age must be a number").isInt();
+
+  //sex
+  req.check("sex", "Enter your sex").notEmpty();
+  req.check("sex", "Enter a valid sex").isLength({ min: 4, max: 7 });
+
+  //check for errors
+  const errors = req.validationErrors();
+  // if error show the rirst one as they happen
+  if (errors) {
+    const firstError = errors.map(error => error.msg)[0];
+    return res.status(400).json({ error: firstError });
+  }
+  // proceed to next middleware
+  next();
+};
