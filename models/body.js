@@ -14,14 +14,8 @@ const bodySchema = new mongoose.Schema({
     type: Date
   },
   height: {
-    feet: {
-      type: ObjectId,
-      ref: Feet
-    },
-    inches: {
-      type: ObjectId,
-      ref: Inches
-    }
+    type: Number,
+    required: true
   },
   age: {
     type: Number,
