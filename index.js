@@ -41,6 +41,7 @@ const userRoutes = require("./routes/user");
 const bodyRoutes = require("./routes/body");
 const bankRoutes = require("./routes/bank");
 const billRoutes = require("./routes/bill");
+const depositRoutes = require("./routes/deposit");
 
 /**
  *  App Middleware
@@ -56,6 +57,7 @@ app.use("/", userRoutes);
 app.use("/", bodyRoutes);
 app.use("/", bankRoutes);
 app.use("/", billRoutes);
+app.use("/", depositRoutes);
 
 /**
  * Routes Definitions
