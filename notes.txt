@@ -1,0 +1,1 @@
+refactor so isOwner is in a globally accessible spot 
