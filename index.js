@@ -43,6 +43,7 @@ const bankRoutes = require("./routes/bank");
 const billRoutes = require("./routes/bill");
 const depositRoutes = require("./routes/deposit");
 const widthdrawRoutes = require("./routes/widthdrawl");
+const goalRoutes = require("./routes/goal");
 
 /**
  *  App Middleware
@@ -60,6 +61,7 @@ app.use("/", bankRoutes);
 app.use("/", billRoutes);
 app.use("/", depositRoutes);
 app.use("/", widthdrawRoutes);
+app.use("/", goalRoutes);
 
 /**
  * Routes Definitions

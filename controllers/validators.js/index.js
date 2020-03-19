@@ -144,3 +144,25 @@ exports.createWidthdrawalValidator = (req, res, next) => {
   // proceed to next middleware
   next();
 };
+
+exports.createGoalValidator = (req, res, next) => {
+  // title
+  req.check("name", "Please put a name").notEmpty();
+
+  // description
+  req.check("description", "Please put an amount").notEmpty();
+
+  // duration
+  req.check("duration", "Please enter a date").notEmpty();
+  req.check("duration", "Please enter a valid date").isDate();
+
+  // check for errors
+  const errors = req.validationErrors();
+  // if error show the first one
+  if (errors) {
+    const firstError = errors.map(error => error.msg)[0];
+    return res.status(400).json({ error: firstError });
+  }
+  // proceed to next middleware
+  next();
+};
