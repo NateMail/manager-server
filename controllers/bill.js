@@ -52,7 +52,7 @@ exports.isOwner = (req, res, next) => {
 
 exports.billsByUser = (req, res) => {
   Bill.find({ addedBy: req.profile._id })
-    .select("name amount due reoccurring paid addedBy")
+    .select("name amount due where reoccurring paid addedBy")
     .sort("_addedBy")
     .exec((error, bill) => {
       if (error) {
