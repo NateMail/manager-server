@@ -1,1 +1,7 @@
 refactor so isOwner is in a globally accessible spot 
+
+make sure bills get taken out of correct bank account 
+
+front end needs to take care of deposit or widthdrawals for specific accounts:
+    with deposits it needs to add to the account
+    with widthdrawals it needs to remove that amount

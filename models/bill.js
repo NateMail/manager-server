@@ -19,6 +19,10 @@ const billSchema = new mongoose.Schema({
     type: Boolean,
     default: false
   },
+  account: {
+    type: String,
+    required: true
+  },
   paid: {
     type: Boolean,
     default: false
