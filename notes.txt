@@ -1,5 +1,7 @@
 refactor so isOwner is in a globally accessible spot 
 
+For bills if reoccurring is checked off find a way to make a selection monthly, weekly, daily, yearly
+
 make sure bills get taken out of correct bank account 
 
 front end needs to take care of deposit or widthdrawals for specific accounts:
