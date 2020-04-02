@@ -7,3 +7,5 @@ make sure bills get taken out of correct bank account
 front end needs to take care of deposit or widthdrawals for specific accounts:
     with deposits it needs to add to the account
     with widthdrawals it needs to remove that amount
+
+Need to take the logic out of body controller and do it on the front end. 
